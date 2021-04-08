@@ -12,6 +12,13 @@ body {
 }
 
 .game__header {
+  padding: 1.4em;
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+.game__button {
+  width: 60px;
+  height: 60px;
 }
