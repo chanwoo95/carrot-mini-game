@@ -10,3 +10,8 @@ body {
   height: 600px;
   background: url(./img/background.png) center/cover;
 }
+
+.game__header {
+  display: flex;
+  flex-direction: column;
+}
