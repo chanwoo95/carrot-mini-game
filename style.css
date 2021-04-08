@@ -22,3 +22,10 @@ body {
   width: 60px;
   height: 60px;
 }
+
+.game__timer {
+  background-color: white;
+  border-radius: 10px;
+  width: 80px;
+  height: 40px;
+}
