@@ -1,0 +1,12 @@
+body {
+  box-sizing: border-box;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  width: 1000px;
+  height: 600px;
+  background: url(./img/background.png) center/cover;
+}
