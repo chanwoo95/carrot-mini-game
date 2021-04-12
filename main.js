@@ -41,10 +41,16 @@ function addItem(className, imgPath, count) {
         item.setAttribute('src', imgPath);
         item.style.position='absolute';
 
-        item.randomNum(x1,y1);
-        item.randomNum(x2,y2);
+        const x = randomNum(x1,x2);
+        const y = randomNum(y1,y2);
+        item.style.left=`${x}px`;
+        item.style.top=`${y}px`;
         gameField.appendChild(item);
     }
+}
+
+function randomNum(min,max) {
+    return Math.random() * (max - min) + min;
 }
 
 function init() {

@@ -51,6 +51,7 @@ body {
 }
 
 .game__field {
+  position: relative;
   margin-top: 3.2rem;
   border: 2px solid blue;
   width: 100%;
