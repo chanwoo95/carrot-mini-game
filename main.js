@@ -7,6 +7,23 @@ const fieldRect = gameField.getBoundingClientRect();
 
 const CARROT_COUNT = 5;
 const BUG_COUNT = 5;
+const CARROT_SIZE = 80;
+
+let started = false;
+
+gameBtn.addEventListener('click', () => {
+    if(started) {
+        stopGame();
+    } else {
+        startGame();
+        started = !started;
+    }
+})
+
+function startGame() {
+    showStopBtn();
+}
+
 
 
 function showStopBtn() {
@@ -14,30 +31,18 @@ function showStopBtn() {
     playBtn.classList.add('fa-stop');
 }
 
-function showStartBtn() {
-    playBtn.classList.remove('fa-stop');
-    playBtn.classList.add('fa-play');
-    
-}
 
-
-
-function startGame() {
-    gameBtn.addEventListener("click", () => {
-        showStopBtn();
-    });
-}
 
 function addItem(className, imgPath, count) {
    
     const x1 = 0;
     const y1 = 0;
-    const x2 = fieldRect.width;
-    const y2 = fieldRect.height; 
+    const x2 = fieldRect.width-CARROT_SIZE;
+    const y2 = fieldRect.height-CARROT_SIZE; 
     
     for(let i=0; i<count; i++){
         const item = document.createElement('img');
-        item.setAttribute('className', className);
+        item.setAttribute('class', className);
         item.setAttribute('src', imgPath);
         item.style.position='absolute';
 
