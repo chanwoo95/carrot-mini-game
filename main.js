@@ -22,13 +22,17 @@ gameBtn.addEventListener('click', () => {
 
 function startGame() {
     showStopBtn();
+    showPopupMessage();
 }
-
 
 
 function showStopBtn() {
     playBtn.classList.remove('fa-play');
     playBtn.classList.add('fa-stop');
+}
+
+function showPopupMessage() {
+    
 }
 
 
@@ -59,7 +63,6 @@ function randomNum(min,max) {
 }
 
 function init() {
-    startGame();
     addItem('carrot', 'img/carrot.png', CARROT_COUNT);
     addItem('bug', 'img/bug.png', BUG_COUNT);
 }
