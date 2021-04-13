@@ -1,15 +1,19 @@
 const gameBtn = document.querySelector('.game__button');
 const playBtn = document.querySelector('.fa-play');
+const replayBtn = document.querySelector('.replay__button');
 const gameScore = document.querySelector('.game__score');
 const gameTimer = document.querySelector('.game__timer');
 const gameField = document.querySelector('.game__field');
+const popUpMessage = document.querySelector('.popUp__message');
 const fieldRect = gameField.getBoundingClientRect();
 
 const CARROT_COUNT = 5;
 const BUG_COUNT = 5;
 const CARROT_SIZE = 80;
+const GAME_SEC = 10;
 
 let started = false;
+
 
 gameBtn.addEventListener('click', () => {
     if(started) {
@@ -22,7 +26,28 @@ gameBtn.addEventListener('click', () => {
 
 function startGame() {
     showStopBtn();
+    startTimer();
+}
+
+function stopGame() {
     showPopupMessage();
+}
+
+function startTimer() {
+    let remainSec = GAME_SEC;
+    updateTextScore(remainSec);
+    gameTimer = setInterval( ()=>{
+        if(remainSec <= 0) {
+            clearInterval(gameTimer);
+            return;
+        }
+        updateTextScore(--remainSec);
+        
+    }, 1000)
+}
+
+function updateTextScore(time) {
+    gameTimer.textContent=time;
 }
 
 
@@ -32,7 +57,7 @@ function showStopBtn() {
 }
 
 function showPopupMessage() {
-    
+    popUpMessage.style.visibility = 'visible';
 }
 
 
