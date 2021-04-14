@@ -1,5 +1,6 @@
 const gameBtn = document.querySelector('.game__button');
 const playBtn = document.querySelector('.fa-play');
+
 const replayBtn = document.querySelector('.replay__button');
 const gameScore = document.querySelector('.game__score');
 const gameTimer = document.querySelector('.game__timer');
@@ -24,6 +25,19 @@ gameBtn.addEventListener('click', () => {
     }
 })
 
+gameField.addEventListener('click', (event) => {
+    const target = event.target;
+    if(target.matches('.carrot')) {
+        gameField.removeChild(event.target);
+    } else if(target.matches('.bug')) {
+        stopGame();
+    }
+})
+
+
+
+
+
 function startGame() {
     showStopBtn();
     startTimer();
@@ -31,24 +45,31 @@ function startGame() {
 
 function stopGame() {
     showPopupMessage();
+    stopGameTimer();
 }
 
 function startTimer() {
     let remainSec = GAME_SEC;
-    updateTextScore(remainSec);
-    gameTimer = setInterval( ()=>{
+    updateTextTimer(remainSec);
+    gameTimer = setInterval( ()=> {
         if(remainSec <= 0) {
             clearInterval(gameTimer);
             return;
         }
-        updateTextScore(--remainSec);
+        updateTextTimer(--remainSec);
+        
         
     }, 1000)
 }
 
-function updateTextScore(time) {
+function updateTextTimer(time) {
     gameTimer.textContent=time;
 }
+
+function stopGameTimer() {
+    gameTimer.clearInterval();
+}
+
 
 
 function showStopBtn() {
@@ -59,6 +80,7 @@ function showStopBtn() {
 function showPopupMessage() {
     popUpMessage.style.visibility = 'visible';
 }
+
 
 
 
@@ -88,8 +110,8 @@ function randomNum(min,max) {
 }
 
 function init() {
+    gameField.innerHTML = "";
     addItem('carrot', 'img/carrot.png', CARROT_COUNT);
     addItem('bug', 'img/bug.png', BUG_COUNT);
 }
-
 init();
