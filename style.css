@@ -40,6 +40,7 @@ button {
   line-height: 40px;
   text-align: center;
   margin: 1.4rem 0;
+  visibility: hidden;
 }
 
 .game__score {
@@ -51,6 +52,7 @@ button {
   line-height: 50px;
   text-align: center;
   font-size: 1.8rem;
+  visibility: hidden;
 }
 
 .game__field {
@@ -82,12 +84,12 @@ button {
   visibility: hidden;
 }
 
-.replay__button {
+.popUp__button {
   background-color: white;
   font-size: 3.2em;
   margin-top: 1.2rem;
 }
 
-.replay__button:hover {
+.popUp__button:hover {
   background-color: palevioletred;
 }
