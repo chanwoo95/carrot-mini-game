@@ -34,7 +34,6 @@ gameField.addEventListener('click', onFieldClick)
 popUpBtn.addEventListener('click', () => {
     startGame();
     hidePopUpMessage();
-    init();
 })
 
 function onFieldClick(event) {
@@ -53,7 +52,7 @@ function onFieldClick(event) {
 
 function finishGame() {
     started = true; 
-    showPopupWithText(false);
+    showPopupWithText(win ? 'You LOSE😂' : 'You WIN!!!!🥰');
     stopGameTimer();
 }
 
@@ -65,11 +64,11 @@ function updateScoreBoard() {
 
 function startGame() {
     started = false;
-    init();
+    init(); 
     showStopButton();
-    showTimerAndScore();
-    startGameTimer();
-    updateScoreBoard();
+    showTimerAndScore(); 
+    startGameTimer(); 
+    updateScoreBoard(); 
 }
 
 function stopGame() {
@@ -77,6 +76,10 @@ function stopGame() {
     showPopupWithText("Replay?😋");
     stopGameTimer();
     hideGameButton();
+}
+
+function hidePopUpMessage() {
+    popUpMessage.style.visibility = 'hidden';
 }
 
 function hideGameButton() {
