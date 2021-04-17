@@ -37,46 +37,52 @@ popUpBtn.addEventListener('click', () => {
 })
 
 function onFieldClick(event) {
+    if(!started) {
+        return;
+    }
     const target = event.target;
     if(target.matches('.carrot')) {
         target.remove();
         score++;
         updateScoreBoard();
-        if(CARROT_COUNT === score) {
-            finishGame();
+        if(score === CARROT_COUNT) {
+            finishGame(true);
+            
         }
     } else if (target.matches('.bug')) {
-        finishGame();
+        finishGame(false);
     }
-}
-
-function finishGame() {
-    started = true; 
-    showPopupWithText(win ? 'You LOSE😂' : 'You WIN!!!!🥰');
-    stopGameTimer();
-}
-
-
-function updateScoreBoard() {
-    gameScore.innerHTML = CARROT_COUNT - score;
 }
 
 
 function startGame() {
-    started = false;
+    started = true;
     init(); 
     showStopButton();
     showTimerAndScore(); 
     startGameTimer(); 
-    updateScoreBoard(); 
+    
 }
 
 function stopGame() {
-    started = true;
+    started = false;
     showPopupWithText("Replay?😋");
     stopGameTimer();
     hideGameButton();
 }
+
+function finishGame(win) {
+  started = false;
+  showPopupWithText(win ? "You WIN!!!!🥰" : "You LOST😂");
+  stopGameTimer();
+}
+
+
+function updateScoreBoard() {
+    gameScore.innerText = CARROT_COUNT - score;
+}
+
+
 
 function hidePopUpMessage() {
     popUpMessage.style.visibility = 'hidden';
@@ -87,6 +93,7 @@ function hideGameButton() {
 }
 
 function showTimerAndScore() {
+    
     gameScore.style.visibility = 'visible';
     gameTimer.style.visibility = 'visible';
 
@@ -98,7 +105,7 @@ function startGameTimer() {
     timer = setInterval( ()=> {
         if(remainSec <= 0) {
             clearInterval(timer);
-            stopGame();
+            finishGame(CARROT_COUNT === score);
             return;
         }
         updateTextTimer(--remainSec);
@@ -158,7 +165,9 @@ function randomNum(min,max) {
 }
 
 function init() {
+    score = 0;
     gameField.innerHTML = '';
+    gameScore.innerText = CARROT_COUNT;
     addItem('carrot', 'img/carrot.png', CARROT_COUNT);
     addItem('bug', 'img/bug.png', BUG_COUNT);
 
