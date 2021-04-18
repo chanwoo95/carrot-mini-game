@@ -25,6 +25,10 @@ button {
 .game__button {
   width: 60px;
   height: 60px;
+  font-size: 1.2rem;
+  background-color: white;
+  outline: none;
+  border: 2px solid black;
 }
 
 .fa-play {
@@ -34,7 +38,7 @@ button {
 .game__timer {
   background-color: white;
   border-radius: 10px;
-  border: 1px solid black;
+  border: 2px solid black;
   width: 80px;
   height: 40px;
   line-height: 40px;
@@ -46,7 +50,7 @@ button {
 .game__score {
   background-color: white;
   border-radius: 50%;
-  border: 1px solid black;
+  border: 2px solid black;
   width: 50px;
   height: 50px;
   line-height: 50px;
@@ -84,10 +88,25 @@ button {
   visibility: hidden;
 }
 
+.popUp__message.pop-up--hide {
+  position: absolute;
+  text-align: center;
+  background-color: lightgrey;
+  top: 240px;
+  opacity: 0.8;
+  width: 500px;
+  height: 300px;
+}
+
 .popUp__button {
   background-color: white;
   font-size: 3.2em;
   margin-top: 1.2rem;
+}
+
+.popUp__text {
+  margin-top: 1.4rem;
+  font-size: 3.2rem;
 }
 
 .popUp__button:hover {

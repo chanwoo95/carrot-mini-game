@@ -1,3 +1,6 @@
+'use strict';
+
+import PopUp from './popup.js';
 const gameBtn = document.querySelector('.game__button');
 const playBtn = document.querySelector('.fa-play');
 
@@ -11,6 +14,7 @@ const popUpMessage = document.querySelector('.popUp__message');
 const popUpBtn = document.querySelector('.popUp__button');
 const popUpText = document.querySelector('.popUp__text');
 
+const gameFinishBanner = new PopUp();
 
 const CARROT_COUNT = 5;
 const BUG_COUNT = 5;
@@ -31,10 +35,10 @@ gameBtn.addEventListener('click', () => {
 
 gameField.addEventListener('click', onFieldClick)
 
-popUpBtn.addEventListener('click', () => {
+gameFinishBanner.setClickListener( () => {
     startGame();
-    hidePopUpMessage();
-})
+});
+
 
 function onFieldClick(event) {
     if(!started) {
@@ -66,14 +70,14 @@ function startGame() {
 
 function stopGame() {
     started = false;
-    showPopupWithText("Replay?😋");
+    gameFinishBanner.showWithText("Replay?😋");
     stopGameTimer();
     hideGameButton();
 }
 
 function finishGame(win) {
   started = false;
-  showPopupWithText(win ? "You WIN!!!!🥰" : "You LOST😂");
+  gameFinishBanner.showWithText(win ? "You WIN!!!!🥰" : "You LOST😂");
   stopGameTimer();
 }
 
@@ -83,10 +87,6 @@ function updateScoreBoard() {
 }
 
 
-
-function hidePopUpMessage() {
-    popUpMessage.style.visibility = 'hidden';
-}
 
 function hideGameButton() {
     gameBtn.style.visibility = 'hidden';
@@ -114,7 +114,7 @@ function startGameTimer() {
     }, 1000)
 }
 
-function stopGameTimer() {
+function stopGameTimer(timer) {
     clearInterval(timer);
 }
 
@@ -128,14 +128,6 @@ function showStopButton() {
     playBtn.classList.remove('fa-play');
     playBtn.classList.add('fa-stop');
 }
-
-function showPopupWithText(text) {
-    popUpMessage.style.visibility = 'visible';
-    popUpText.textContent = text;
-    popUpMessage.classList.remove('pop-up--hide');
-}
-
-
 
 
 
