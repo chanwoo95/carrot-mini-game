@@ -110,7 +110,6 @@ function startGameTimer() {
         }
         updateTextTimer(--remainSec);
         
-        
     }, 1000)
 }
 

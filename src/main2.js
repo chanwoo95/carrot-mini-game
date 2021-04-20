@@ -1,6 +1,13 @@
 'use strict';
 
 import PopUp from './popup.js';
+import * as sound from './sound.js';
+
+const CARROT_COUNT = 10;
+const BUG_COUNT = 10;
+const GAME_SEC = 15;
+
+const CARROT_SIZE = 80;
 
 const gameField = document.querySelector('.game__field');
 const gameScore = document.querySelector('.game__score');
@@ -8,16 +15,13 @@ const gameTimer = document.querySelector('.game__timer');
 const playBtn = document.querySelector('.game__button');
 const field = gameField.getBoundingClientRect();
 
-const CARROT_COUNT = 10;
-const BUG_COUNT = 10;
-const CARROT_SIZE = 80;
-const GAME_SEC = 15;
 
 let started = false;
 let score = 0;
 let timer = undefined;
 
 const gameFinishBanner = new PopUp();
+
 
 playBtn.addEventListener('click', () => {
       if(started) {
@@ -31,23 +35,31 @@ gameField.addEventListener('click', onClickField);
 
 
 function startGame() {
+    started = true;
     initGame();
     startTimer();
     showScoreAndTimer();
     updateScoreBoard();
+    sound.backgroundSound();
 }
 
+
+
+
 function stopGame() {
+    started = false;
     stopGameTimer();
+    gameFinishBanner.showWithText('Replay?');
 }
 
 function finishGame(win) {
+    started = false;
     stopGameTimer();
-    gameFinishBanner.showWithText(win ? 'You WIN!!!' : 'YOu LOST...')
+    gameFinishBanner.showWithText(win ? 'You WIN!!!' : 'You LOST...')
 }
 
 function stopGameTimer() {
-    clearInterval();
+    clearInterval(timer);
 }
 
 function startTimer() {
@@ -56,7 +68,7 @@ function startTimer() {
     timer = setInterval( () => {
         if(remainSec < 0) {
             clearInterval(timer);
-            // finishGame();
+            finishGame(false);
             return;
         }
         updateTimer(--remainSec);
@@ -66,20 +78,20 @@ function startTimer() {
 function updateTimer(time) {
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
-    gameTimer.innerHTML = `${minutes} : ${seconds}`
+    gameTimer.innerHTML = `${minutes}:${seconds}`
 }
 
-function onClickField() {
+function onClickField(event) {
     const target = event.target;
     if(target.matches('.carrot')) {
         target.remove();
         score++;
         updateScoreBoard();
-        // if(score === CARROT_COUNT) {
-        //     finishGame();
-        // }
+        if(score === CARROT_COUNT) {
+            finishGame(false);
+        }
     } else if (target.matches('.bug')) {
-        // finishGame();
+        finishGame(false);
     }
 }
 

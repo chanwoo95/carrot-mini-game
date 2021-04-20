@@ -102,3 +102,7 @@ button {
   margin-top: 1.4rem;
   font-size: 3.2rem;
 }
+
+.pop-up--hide {
+  display: none;
+}

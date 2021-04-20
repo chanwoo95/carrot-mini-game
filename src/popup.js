@@ -5,8 +5,12 @@ export default class PopUp {
         this.popUp = document.querySelector('.pop-up');
         this.popUpBtn = document.querySelector('.pop-up--button');
         this.popUpText = document.querySelector('.pop-up--text');
-        
+        this.onClick && this.setClickListener('click', onClick);
     
+    }
+
+    setClickListener(onClick) {
+        this.onClick = onClick();
     }
 
     
@@ -16,7 +20,7 @@ export default class PopUp {
     }
 
     showWithText(text) {
-        this.popUpText.innerText = text;
+        this.popUpText.textContent = text;
         this.popUp.classList.remove('pop-up--hide');
 
     }
