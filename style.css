@@ -85,24 +85,23 @@ button {
   opacity: 0.8;
   width: 500px;
   height: 300px;
-  visibility: hidden;
 }
 
-.pop-up--button {
+.pop-up__refresh {
   background-color: white;
   font-size: 3.2em;
   margin-top: 1.2rem;
 }
 
-.pop-up--button:hover {
+.pop-up__refresh:hover {
   background-color: palevioletred;
 }
 
-.pop-up--text {
+.pop-up__message {
   margin-top: 1.4rem;
   font-size: 3.2rem;
 }
 
-.pop-up--hide {
+.hide {
   display: none;
 }
