@@ -3,17 +3,12 @@
 import PopUp from './popup.js';
 import * as sound from './sound.js';
 
-const CARROT_COUNT = 10;
-const BUG_COUNT = 10;
+
 const GAME_SEC = 15;
 
-const CARROT_SIZE = 80;
-
-const gameField = document.querySelector('.game__field');
 const gameScore = document.querySelector('.game__score');
 const gameTimer = document.querySelector('.game__timer');
 const playBtn = document.querySelector('.game__button');
-const field = gameField.getBoundingClientRect();
 
 
 let started = false;
