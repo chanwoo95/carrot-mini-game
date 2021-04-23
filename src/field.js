@@ -1,8 +1,3 @@
-const CARROT_COUNT = 10;
-const BUG_COUNT = 10;
-
-const CARROT_SIZE = 80;
-
 
 export default class Field {
     constructor(carrotCount, bugCount) {
@@ -10,13 +5,29 @@ export default class Field {
         this.bugCount = bugCount;
         this.field = document.querySelector('.game__field');
         this.fieldRect = this.field.getBoundingClientRect();
-                
+        this.field.addEventListener('click', onClick);
     }
 
     init() {
         this.field.innerHTML = '';
-        _addItem('carrot', 'img/carrot.png', CARROT_COUNT);
-        _addItem('bug', 'img/bug.png', BUG_COUNT);
+        this._addItem('carrot', 'img/carrot.png', this.carrotCount);
+        this._addItem('bug', 'img/bug.png', this.bugCount);
+    }
+
+    setClickListener(onItemClick) {
+        this.onItemClick = onItemClick;
+    }
+
+    onClick(event) {
+        const target = event.target;
+
+        if(target.matches('.carrot')) {
+            this.onItemClick && this.onItemClick('carrot');
+        } else if (target.matches('.bug')) {
+            this.onItemClick && this.onItemClick('bug');
+        }
+        
+      
     }
 
     _addItem(className, imgPath, count) {

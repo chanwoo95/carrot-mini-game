@@ -1,6 +1,7 @@
 'use strict';
 
 import PopUp from './popup.js';
+import Field from './field.js';
 import * as sound from './sound.js';
 
 
@@ -16,11 +17,33 @@ let score = 0;
 let timer = undefined;
 
 const gameFinishBanner = new PopUp();
+const gameField = new Field(CARROT_COUNT, BUG_COUNT);
+gameField.setClickListener(onItemClick);
+
+function onItemClick(item) {
+    if(!started) {
+        return;
+    }
+    if(item === 'carrot') {
+    score++;
+    updateScoreBoard();
+    if( score === CARROT_COUNT ) {
+        finishGame(true);
+    }
+        
+       finishGame(true);
+    } else if (item === 'bug') {
+        finishGame(false);
+    }
+}
+
+
 gameFinishBanner.setClickListener(() => {
     startGame();
 })
 
 gameField.addEventListener('click', onClickField);
+
 playBtn.addEventListener('click', () => {
       if(started) {
        stopGame(); 
@@ -57,24 +80,7 @@ function finishGame(win) {
     } 
 }
 
-function addItem(className, imgPath, count) {
-  const x1 = 0;
-  const y1 = 0;
-  const x2 = field.width - CARROT_SIZE;
-  const y2 = field.height - CARROT_SIZE;
 
-  for (let i = 0; i < count; i++) {
-    const item = document.createElement("img");
-    item.setAttribute("class", className);
-    item.setAttribute("src", imgPath);
-    item.style.position = "absolute";
-    const x = randomNum(x1, x2);
-    const y = randomNum(y1, y2);
-    item.style.left = `${x}px`;
-    item.style.top = `${y}px`;
-    gameField.appendChild(item);
-  }
-}
 
 function startTimer() {
   let remainSec = GAME_SEC;
@@ -114,23 +120,6 @@ function stopGameTimer() {
 
 
 
-function onClickField(event) {
-    const target = event.target;
-    if(target.matches('.carrot')) {
-        target.remove();
-        sound.playCarrot();
-        score++;
-        updateScoreBoard();
-        if(score === CARROT_COUNT) {
-            finishGame(true);
-            sound.playWin();
-        }
-    } else if (target.matches('.bug')) {
-        sound.playBug();
-        finishGame(false);
-    }
-}
-
 function updateScoreBoard() {
     gameScore.innerHTML = CARROT_COUNT - score;
 }
@@ -140,15 +129,3 @@ function showScoreAndTimer() {
     gameTimer.style.visibility = 'visible';
 }
 
-
-
-function randomNum(min, max) {
-    return Math.random() * (max-min) + min;
-}
-
-function initGame() {
-    score = 0;
-    gameField.innerText = '';
-    addItem('carrot', 'img/carrot.png', CARROT_COUNT);
-    addItem('bug', 'img/bug.png', BUG_COUNT);
-}
