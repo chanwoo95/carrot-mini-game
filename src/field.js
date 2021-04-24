@@ -5,7 +5,7 @@ export default class Field {
         this.bugCount = bugCount;
         this.field = document.querySelector('.game__field');
         this.fieldRect = this.field.getBoundingClientRect();
-        this.field.addEventListener('click', onClick);
+        this.field.addEventListener('click', this.onClick);
     }
 
     init() {
@@ -33,8 +33,8 @@ export default class Field {
     _addItem(className, imgPath, count) {
         const x1 = 0;
         const y1 = 0;
-        const x2 = this.fieldRect.width - CARROT_SIZE;
-        const y2 = this.fieldRect.height - CARROT_SIZE;
+        const x2 = this.fieldRect.width 
+        const y2 = this.fieldRect.height 
 
         for(let i =0 ; i < count; i++) {
             const item = document.createElement('img');
@@ -51,9 +51,9 @@ export default class Field {
         }
     }
 
-    randomNum(min, max) {
-        return Math.random() * (max - min) + min
-    }
+}
+function randomNum(min, max) {
+    return Math.random() * (max - min) + min
 
     
 }

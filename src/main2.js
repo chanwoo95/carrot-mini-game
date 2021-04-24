@@ -4,7 +4,8 @@ import PopUp from './popup.js';
 import Field from './field.js';
 import * as sound from './sound.js';
 
-
+const CARROT_COUNT = 10;
+const BUG_COUNT = 10;
 const GAME_SEC = 15;
 
 const gameScore = document.querySelector('.game__score');
@@ -42,7 +43,7 @@ gameFinishBanner.setClickListener(() => {
     startGame();
 })
 
-gameField.addEventListener('click', onClickField);
+
 
 playBtn.addEventListener('click', () => {
       if(started) {
@@ -55,7 +56,7 @@ playBtn.addEventListener('click', () => {
 
 function startGame() {
     started = true;
-    initGame();
+    gameField.init();
     startTimer();
     showScoreAndTimer();
     showStopButton();
