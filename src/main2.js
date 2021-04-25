@@ -22,17 +22,13 @@ const gameField = new Field(CARROT_COUNT, BUG_COUNT);
 gameField.setClickListener(onItemClick);
 
 function onItemClick(item) {
-    if(!started) {
-        return;
-    }
+  
     if(item === 'carrot') {
     score++;
     updateScoreBoard();
-    if( score === CARROT_COUNT ) {
+        if( score === CARROT_COUNT ) {
         finishGame(true);
-    }
-        
-       finishGame(true);
+        }
     } else if (item === 'bug') {
         finishGame(false);
     }
@@ -56,7 +52,7 @@ playBtn.addEventListener('click', () => {
 
 function startGame() {
     started = true;
-    gameField.init();
+    initGame();
     startTimer();
     showScoreAndTimer();
     showStopButton();
@@ -130,3 +126,8 @@ function showScoreAndTimer() {
     gameTimer.style.visibility = 'visible';
 }
 
+function initGame() {
+    score = 0;
+    gameField.init();
+
+}
