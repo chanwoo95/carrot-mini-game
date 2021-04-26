@@ -39,8 +39,6 @@ gameFinishBanner.setClickListener(() => {
     startGame();
 })
 
-
-
 playBtn.addEventListener('click', () => {
       if(started) {
        stopGame(); 

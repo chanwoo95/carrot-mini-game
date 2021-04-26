@@ -8,13 +8,14 @@ export default class Field {
         this.fieldRect = this.field.getBoundingClientRect();
         this.field.addEventListener('click', this.onClick);
     }
-
+    
+    
     
     setClickListener(onItemClick) {
         this.onItemClick = onItemClick;
     }
     
-    onClick(event) {
+    onClick = (event) => {
         const target = event.target;
         
         if(target.matches('.carrot')) {
