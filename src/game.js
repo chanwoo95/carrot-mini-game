@@ -26,9 +26,18 @@ export default class Game {
         this.started = false;
         this.score = 0;
         this.timer = undefined;
-
-
     }   
+
+    setGameStopListener(onGameStop) {
+        this.onGameStop = onGameStop;
+    }
+
+    initGame() {
+        this.score = 0;
+        this.gameField.init();
+        this.gameField.innerHTML = '';
+
+    }
 
     start() {
         this.started = true;
@@ -43,15 +52,17 @@ export default class Game {
         this.started = false;
         this.stopGameTimer();
         this.hideStopButton();
+        this.onGameStop && this.onGameStop('cancel');
         
     }
 
     finish(win) {
         this.started = false;
-        this.stopGameTImer();
+        this.stopGameTimer();
         if(win) {
             sound.playWin();
         }   
+        this.onGameStop && this.onGameStop(win ? 'win' : 'lose');
     }
 
     onItemClick = item => {
@@ -60,7 +71,7 @@ export default class Game {
             this.updateScoreBoard();
             if( this.score === this.carrotCount) {
                 this.finish(false);
-            } else if( item === 'bug') {
+        } else if( item === 'bug') {
                 this.finish(true);
             }
         }
@@ -69,10 +80,10 @@ export default class Game {
     startTimer() {
         let remainSec = this.gameDuration;
         this.updateTimer(remainSec);
-        timer = setInterval(() => {
+        this.onGameStoptimer = setInterval(() => {
             if(remainSec < 0) {
-                clearInterval(timer);
-                this.finish(flase);
+                clearInterval(this.timer);
+                this.finish(false);
                 return;
             }
             this.updateTimer(--remainSec);
@@ -97,9 +108,8 @@ export default class Game {
     
 
     stopGameTimer() {
-    clearInterval(timer);
+    clearInterval(this.timer);
     }
-
 
 
     updateScoreBoard() {
