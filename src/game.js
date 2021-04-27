@@ -60,27 +60,32 @@ export default class Game {
         this.started = false;
         this.stopGameTimer();
         if(win) {
+            sound.playBug();
+        } else {
             sound.playWin();
-        }   
-        this.onGameStop && this.onGameStop(win ? 'win' : 'lose');
+        }
+        this.onGameStop && this.onGameStop(win ? 'lose' : 'win');
     }
 
     onItemClick = item => {
         if(item === 'carrot') {
             this.score++;
             this.updateScoreBoard();
+            sound.playCarrot();
             if( this.score === this.carrotCount) {
                 this.finish(false);
-        } else if( item === 'bug') {
+            } 
+        }
+        else if( item === 'bug') {
                 this.finish(true);
-            }
+                
         }
     }
 
     startTimer() {
         let remainSec = this.gameDuration;
         this.updateTimer(remainSec);
-        this.onGameStoptimer = setInterval(() => {
+        this.timer = setInterval(() => {
             if(remainSec < 0) {
                 clearInterval(this.timer);
                 this.finish(false);
@@ -108,17 +113,17 @@ export default class Game {
     
 
     stopGameTimer() {
-    clearInterval(this.timer);
+        clearInterval(this.timer);
     }
 
 
     updateScoreBoard() {
-    this.gameScore.innerHTML = this.carrotCount - this.score;
+        this.gameScore.innerHTML = this.carrotCount - this.score;
     }
 
     showScoreAndTimer() {
-    this.gameScore.style.visibility = 'visible';
-    this.gameTimer.style.visibility = 'visible';
+        this.gameScore.style.visibility = 'visible';
+        this.gameTimer.style.visibility = 'visible';
     }
 
             
