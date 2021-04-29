@@ -12,6 +12,11 @@ export function playCarrot() {
     playSound(carrotSound);
 }
 
+export function playAlert() {
+    playSound(alertSound);
+}
+
+
 export function playBug() {
     playSound(bugSound);
 }
@@ -20,7 +25,13 @@ export function playWin() {
     playSound(winSound);
 }
 
+export function stopBackground() {
+    stopSound(bgSound);
+}
 
+function stopSound(sound) {
+    sound.pause();
+}
 
 
 function playSound(sound) {

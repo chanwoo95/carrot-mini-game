@@ -2,19 +2,30 @@
 import Field from './field.js';
 import * as sound from './sound.js';
 
-export default class GameBuilder {
+export const Reason = Object.freeze({
+    win : 'win',
+    lose : 'lose',
+    cancle : 'cancle',
+})
+
+export const ItemType = Object.freeze({
+    carrot : 'carrot',
+    bug : 'bug',
+})
+
+export class GameBuilder {
     withGameDuration(duration) {
         this.gameDuration = duration;
         return this;
     }
 
-    withCarrotCount(num) {
-        this.carrotCount = num;
+    withCarrotCount(countNum) {
+        this.carrotCount = countNum;
         return this;
     }
 
-    withBugCount(num) {
-        this.bugCount = num;
+    withBugCount(countNum) {
+        this.bugCount = countNum;
         return this;
     }
 
@@ -40,7 +51,7 @@ class Game {
         this.playBtn = document.querySelector('.game__button');
         this.playBtn.addEventListener('click', () => {
             if(this.started) {
-                this.stop();
+                this.stop(Reason.cancle);
             } else {
                 this.start();
             }
@@ -69,41 +80,33 @@ class Game {
         this.started = true;
         this.initGame();
         this.startTimer();
+        this.showStopButton();
         this.showScoreAndTimer();
         this.updateScoreBoard();
         sound.backgroundSound();
     }
 
-    stop() {
+    stop(reason) {
         this.started = false;
         this.stopGameTimer();
         this.hideStopButton();
-        this.onGameStop && this.onGameStop('cancel');
+        this.onGameStop && this.onGameStop(reason)
         
     }
 
-    finish(win) {
-        this.started = false;
-        this.stopGameTimer();
-        if(win) {
-            sound.playBug();
-        } else {
-            sound.playWin();
-        }
-        this.onGameStop && this.onGameStop(win ? 'lose' : 'win');
-    }
 
     onItemClick = item => {
-        if(item === 'carrot') {
+        if(item === ItemType.carrot) {
             this.score++;
             this.updateScoreBoard();
             sound.playCarrot();
+            
             if( this.score === this.carrotCount) {
-                this.finish(false);
+                this.stop(Reason.win);
             } 
         }
-        else if( item === 'bug') {
-                this.finish(true);
+        else if( item === ItemType.bug) {
+                this.stop(Reason.lose);
                 
         }
     }
@@ -112,9 +115,9 @@ class Game {
         let remainSec = this.gameDuration;
         this.updateTimer(remainSec);
         this.timer = setInterval(() => {
-            if(remainSec < 0) {
+            if(remainSec <= 0) {
                 clearInterval(this.timer);
-                this.finish(false);
+                this.stop(Reason.lose);
                 return;
             }
             this.updateTimer(--remainSec);
