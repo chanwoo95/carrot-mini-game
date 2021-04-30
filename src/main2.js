@@ -11,10 +11,11 @@ import * as sound from "./sound.js";
 const gameFinishBanner = new PopUp();
 
 const game = new GameBuilder()
-.withGameDuration(3)
-.withCarrotCount(3)
-.withBugCount(3)
+.withGameDuration(15)
+.withCarrotCount(5)
+.withBugCount(8)
 .build()
+
 
 game.setGameStopListener(reason => {
     let message;

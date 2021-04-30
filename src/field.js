@@ -1,3 +1,5 @@
+import {ItemType} from './game.js'
+
 const CARROT_SIZE = 80;
 
 export default class Field {
@@ -20,9 +22,9 @@ export default class Field {
         
         if(target.matches('.carrot')) {
             target.remove();
-            this.onItemClick && this.onItemClick('carrot');
+            this.onItemClick && this.onItemClick(ItemType.carrot);
         } else if (target.matches('.bug')) {
-            this.onItemClick && this.onItemClick('bug');
+            this.onItemClick && this.onItemClick(ItemType.bug);
         }
         
         

@@ -14,7 +14,6 @@ export default class PopUp {
     setClickListener(onClick) {
         this.onClick = onClick;
     }
-    
 
     hide() {
         this.popUp.classList.add('hide');

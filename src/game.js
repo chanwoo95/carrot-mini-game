@@ -34,8 +34,7 @@ export class GameBuilder {
           this.gameDuration,
           this.carrotCount,
           this.bugCount
-        );
-        
+        );        
     }
 }
 
